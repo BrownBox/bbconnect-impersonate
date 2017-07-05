@@ -13,11 +13,6 @@ class profile_impersonate_quicklink extends bb_page_quicklink {
         add_action('wp_footer', array($this, 'bb_impersonation'));
     }
 
-//     public function register_impersonation_pages() {
-//         add_submenu_page('options.php', null, null, 'list_users', 'bb_page_impersonate_user', array($this, 'impersonate_user'));
-//         add_submenu_page('options.php', null, null, 'list_users', 'bb_page_cease_impersonation', array($this, 'cease_impersonation'));
-//     }
-
     public function bb_impersonation() {
         if (!empty($_COOKIE['wp_bb_admin_user'])) {
             $page_url = BBCONNECT_IMPERSONATE_URL.'do_impersonation.php?action=cease_impersonation';
@@ -29,7 +24,7 @@ class profile_impersonate_quicklink extends bb_page_quicklink {
     </style>
     <div id="bb_cease_impersonation"><a href="#" class="fa fa-cog" data-open="bb_impersonation_modal"> </a></div>
     <div id="bb_impersonation_modal" class="reveal tiny" data-reveal>
-        <p>You are currently acting on behalf of <?php echo $user->display_name; ?> (<?php echo $user->user_email; ?>).</p>
+        <p>You are currently logged in on behalf of <?php echo $user->display_name; ?> (<?php echo $user->user_email; ?>). Any actions you take will be tracked against that user.</p>
         <a href="<?php echo $page_url; ?>">Return to admin</a>
         <button class="close-button" data-close aria-label="Close modal" type="button">
             <span aria-hidden="true">&times;</span>
