@@ -3,7 +3,7 @@
  * Plugin Name: Connexions Impersonate
  * Plugin URI: n/a
  * Description: An addon to allow CRM users to log in as contacts and perform actions on their behalf
- * Version: 0.1
+ * Version: 0.1.1
  * Author: Brown Box
  * Author URI: http://brownbox.net.au
  * License: Proprietary Brown Box
@@ -34,4 +34,12 @@ function bbconnect_impersonate_deactivate_notice() {
     if (isset($_GET['activate'])) {
         unset($_GET['activate']);
     }
+}
+
+add_filter('bbconnect_activity_icon', 'bbconnect_impersonate_activity_icon', 10, 2);
+function bbconnect_impersonate_activity_icon($icon, $activity_type) {
+    if ($activity_type == 'impersonate') {
+        $icon = plugin_dir_url(__FILE__).'images/activity-icon.png';
+    }
+    return $icon;
 }
