@@ -22,7 +22,7 @@ class profile_impersonate_quicklink extends bb_page_quicklink {
         #bb_cease_impersonation {background-color: #999; display: inline-block; padding: 1rem; position: fixed; top: 0; left: 0; z-index: 999;}
         #bb_cease_impersonation a {color: white; cursor: pointer;}
     </style>
-    <div id="bb_cease_impersonation"><a href="#" class="fa fa-cog" data-open="bb_impersonation_modal"> </a></div>
+    <div id="bb_cease_impersonation"><a href="#" data-open="bb_impersonation_modal"><img src="<?php echo BBCONNECT_IMPERSONATE_URL.'images/activity-icon.png'; ?>" alt="Impersonation Active"></a></div>
     <div id="bb_impersonation_modal" class="reveal tiny" data-reveal>
         <p>You are currently logged in on behalf of <?php echo $user->display_name; ?> (<?php echo $user->user_email; ?>). Any actions you take will be tracked against that user.</p>
         <a href="<?php echo $page_url; ?>">Return to admin</a>
