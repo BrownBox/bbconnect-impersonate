@@ -9,8 +9,6 @@ ob_start();
 define('WP_USE_THEMES', false);
 require_once(dirname(__FILE__).'/../../../wp-load.php');
 
-define('BB_SALT', 'bb_awesome_salt_string');
-
 extract($_GET);
 if (empty($action) || !is_user_logged_in()) {
     die('No can do.');
@@ -29,7 +27,7 @@ switch ($action) {
 
         // Set cookie with the info we need
         $current_user = wp_get_current_user();
-        setcookie('wp_bb_admin_user', $current_user->ID.':'.md5($current_user->ID.BB_SALT), time()+3600, '/');
+        setcookie('wp_bb_admin_user', $current_user->ID.':'.md5($current_user->ID.BBCONNECT_IMPERSONATE_SALT), time()+3600, '/');
 
         // Track impersonation start
         $tracking_args['user_id'] = $user_id;
@@ -50,7 +48,7 @@ switch ($action) {
     case 'cease_impersonation':
         if (!empty($_COOKIE['wp_bb_admin_user'])) {
             list($user_id, $hash) = explode(':', $_COOKIE['wp_bb_admin_user']);
-            if ($hash == md5($user_id.BB_SALT)) { // Security check
+            if ($hash == md5($user_id.BBCONNECT_IMPERSONATE_SALT)) { // Security check
                 $impersonated_user = wp_get_current_user();
 
                 // Clear cookie
