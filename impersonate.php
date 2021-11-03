@@ -49,3 +49,13 @@ function bbconnect_impersonate_activity_icon($icon, $activity_type) {
     }
     return $icon;
 }
+
+function bbconnect_impersonate_is_impersonating() {
+	if (!empty($_COOKIE['wp_bb_admin_user'])) {
+		list($user_id, $hash) = explode(':', $_COOKIE['wp_bb_admin_user']);
+		if ($hash == md5($user_id.BBCONNECT_IMPERSONATE_SALT)) { // Security check
+			return true;
+		}
+	}
+	return false;
+}
