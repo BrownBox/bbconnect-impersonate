@@ -38,6 +38,8 @@ switch ($action) {
         // Log in as user
         wp_set_current_user($user_id);
         wp_set_auth_cookie($user_id);
+        $impersonated_user = new WP_User($user_id);
+        do_action('wp_login', $impersonated_user->user_login, $impersonated_user);
         if (class_exists('WC')) { // WooCommerce
             WC()->cart->empty_cart();
         }
